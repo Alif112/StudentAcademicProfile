@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>FORGOT PASSWORD</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+
+<%include partials/basicnav.ejs%>
+
+
+<div id="tf-contact">
+
+    <div class="container">
+        <div class="section-title">
+            <h3>Update Password</h3>
+            <h4></h4>
+            <hr>
+        </div>
+
+        <div class="space"></div>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form id="contact" action="/users/reset/<%=token%>" method="POST">
+
+                  <div class="form-group">
+                    <input type="password" class="form-control" id="password" placeholder="New Password" name="newpassword">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" class="form-control" id="password" placeholder="Confirm Password" name="confirmpassword">
+                  </div>
+
+                  <button type="submit" class="btn btn-primary my-btn dark">Update Password</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

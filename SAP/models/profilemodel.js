@@ -10,6 +10,9 @@ var ProfileSchema = mongoose.Schema({
 	profilename: {
 		type: String
 	},
+	university: {
+		type: String
+	},
 	registration: {
 		type: String
 	},
@@ -57,6 +60,9 @@ var ProfileSchema = mongoose.Schema({
 	},
 	overview: {
 		type: String
+	},
+	photo :{
+		type:String
 	}
 
 

@@ -10,8 +10,6 @@ router.get('/projectsdata', function(req, res) {
   var username = req.user.username;
 
   console.log('--------------------->>>>  inside projectsdata');
-
-
   Projects.find({
     username: username
   }, function(err, results) {
@@ -77,13 +75,14 @@ router.post('/projectsdataedit', function(req, res) {
 });
 
 
-router.get('/data/edit/:id', function(req, res){
-  var id=req.params.id;
+router.get('/data/edit/:id', function(req, res) {
+  var id = req.params.id;
   var username = req.user.username;
-  console.log('------>>'+id);
+  console.log('------>>' + id);
 
   Projects.find({
-    username: username,_id:id
+    username: username,
+    _id: id
   }, function(err, results) {
     var fullname = req.user.firstname + ' ' + req.user.lastname;
     if (err) return console.error(err);
@@ -92,7 +91,30 @@ router.get('/data/edit/:id', function(req, res){
     console.log('----------------------------->>>>>>>>>> inside results/projectsdataupdate');
 
     console.log('full name--its here>' + fullname);
-    res.render('projectsdataupdate',{fullname:fullname,results});
+    res.render('projectsdataupdate', {
+      fullname: fullname,
+      results
+    });
+    console.log('ok huh');
+  });
+
+
+
+
+});
+
+router.get('/data/delete/:id', function(req, res) {
+  var id = req.params.id;
+  var username = req.user.username;
+  console.log('------>>' + id);
+
+  Projects.remove({
+    username: username,
+    _id: id
+  }, function(err) {
+    var fullname = req.user.firstname + ' ' + req.user.lastname;
+
+    res.redirect('/projects/projectsdata');
     console.log('ok huh');
   });
 

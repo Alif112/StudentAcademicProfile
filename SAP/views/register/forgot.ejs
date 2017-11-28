@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>FORGOT PASSWORD</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+
+<%include partials/basicnav.ejs%>
+
+
+<div id="tf-contact">
+
+    <div class="container">
+        <div class="section-title">
+            <h3>Forgot Password</h3>
+            <h4>Enter Your Registered Email ID:</h4>
+            <hr>
+        </div>
+
+        <div class="space"></div>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              <%if(info.length>0){%>
+                <div class="alert alert-info">
+                  <%=info%>
+                </div>
+              <%}%>
+
+              <%if(error.length>0){%>
+                <div class="alert alert-danger">
+                  <%=error%>
+                </div>
+              <%}%>
+                <form id="contact" action="/users/forgot" method="POST">
+
+                  <div class="form-group">
+                    <input type="email" class="form-control" id="email" placeholder="Enter Valid Email" name="email">
+                  </div>
+
+                  <button type="submit" class="btn btn-primary my-btn dark">Reset Password</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

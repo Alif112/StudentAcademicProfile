@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>chart</title>
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js">
+  </script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="col-md-8">
+      <script src="chart.utils.js"></script>
+      <script type="text/javascript">
+        require.config({
+          paths: {
+            "jquery": "https://code.jquery.com/jquery-2.2.4.min",
+            "moment": "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment",
+            "chartjs": "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle"
+          },
+          shim: {
+            jquery: {
+              exports: "$"
+            }
+          }
+        });
+
+        require(['jquery', 'moment', 'chartjs'], function($, moment, Chart) {
+
+          function randomScalingFactor() {
+            return Math.round(Math.random() * 100 * (Math.random() > 0.5 ? -1 : 1));
+          }
+
+          function randomColorFactor() {
+            return Math.round(Math.random() * 255);
+          }
+
+          function randomColor(opacity) {
+            return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+          }
+
+          function newDate(days) {
+            return moment().add(days, 'd').toDate();
+          }
+
+          function newDateString(days) {
+            return moment().add(days, 'd').format();
+          }
+  
+          var config = {
+            type: 'line',
+            data: {
+              datasets: [{
+                label: "Dataset with date object point data",
+                data: [{
+                  x: "C",
+                  y: <%=data.length%>
+                }, {
+                  x: "A",
+                  y: randomScalingFactor()
+                }, {
+                  x: "B",
+                  y: randomScalingFactor()
+                }, {
+                  x: "A",
+                  y: randomScalingFactor()
+                }],
+                fill: false
+              }],
+              labels: ["C", "B", "A"]
+            },
+            options: {
+              responsive: true,
+              title: {
+                display: true,
+                text: "Chart.js Time Point Data"
+              },
+              scales: {
+                xAxes: [{
+                  //type: "time",
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'value'
+                  }
+                }],
+                yAxes: [{
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'value'
+                  }
+                }]
+              }
+            }
+          };
+
+          $.each(config.data.datasets, function(i, dataset) {
+            dataset.borderColor = randomColor(0.4);
+            dataset.backgroundColor = randomColor(0.5);
+            dataset.pointBorderColor = randomColor(0.7);
+            dataset.pointBackgroundColor = randomColor(0.5);
+            //console.log(calculateData('tuhin47'));
+            dataset.pointBorderWidth = 1;
+          });
+
+          var ctx = document.getElementById("canvas").getContext("2d");
+
+          window.myLine = new Chart(ctx, config);
+
+        });
+      </script>
+      <canvas id="canvas"></canvas>
+    </div>
+  </div>
+
+
+  <div class="">
+    <input type="text" name="" value="<%=data%>">
+  </div>
+</body>
+
+</html>

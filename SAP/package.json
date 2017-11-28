@@ -6,17 +6,20 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "async": "^2.6.0",
     "bcryptjs": "*",
     "body-parser": "~1.18.2",
     "bootstrap": "^3.3.7",
     "connect-flash": "*",
     "cookie-parser": "~1.4.3",
+    "crypto": "^1.0.1",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
     "express": "^4.15.5",
     "express-messages": "*",
     "express-session": "*",
     "express-validator": "*",
+    "gridfs-stream": "^1.1.1",
     "grunt": "~0.4.5",
     "grunt-contrib-less": "~0.12.0",
     "grunt-contrib-uglify": "~0.7.0",
@@ -26,9 +29,18 @@
     "mongodb": "*",
     "mongoose": "*",
     "morgan": "~1.9.0",
+    "multer": "^1.3.0",
+    "nodemailer": "^4.4.0",
+    "nodemailer-smtp-transport": "^2.7.4",
     "passport": "^0.4.0",
     "passport-http": "*",
     "passport-local": "*",
-    "serve-favicon": "~2.4.5"
+    "pdfkit": "^0.8.3",
+    "promise": "^8.0.1",
+    "serve-favicon": "~2.4.5",
+    "sync": "^0.2.5",
+    "synchronize": "*",
+    "voilab-pdf-table": "^0.4.0",
+    "xoauth2": "^1.2.0"
   }
 }

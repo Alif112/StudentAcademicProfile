@@ -1,0 +1,12 @@
+
+/* Widgets */
+.widget-box {
+	background: none repeat scroll 0 0 #F9F9F9;
+	border-left: 1px solid #CDCDCD;
+	border-top: 1px solid #CDCDCD;
+	border-right: 1px solid #CDCDCD;
+	clear: both;
+	margin-top: 16px;
+	margin-bottom: 16px;
+	position: relative;
+}
