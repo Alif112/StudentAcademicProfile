@@ -3,26 +3,26 @@ var router = express.Router();
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var session= require('express-session');
-var expressValidator=require('express-validator');
+var session = require('express-session');
+var expressValidator = require('express-validator');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var flash = require('connect-flash');
-var passport =require('passport');
+var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var mongo = require('mongodb');
-var mongoose= require('mongoose');
-var url=require('url');
+//var mongo = require('mongodb');
+//var mongoose= require('mongoose');
+var url = require('url');
 var nodemailer = require('nodemailer');
 var async = require('async');
-var crypto=require('crypto');
+var crypto = require('crypto');
 var bcrypt = require('bcryptjs');
 // var xoauth2 = require('xoauth2');
 // var nodemailersmtptransport=require('nodemailer-smtp-transport');
 //var sleep=require('sleep');
 
-mongoose.connect('mongodb://localhost/NodeDemo');
-var db = mongoose.connection;
+//mongoose.connect('mongodb://localhost/NodeDemo');
+//var db = mongoose.connection;
 
 
 
@@ -83,33 +83,32 @@ router.post('/signup', function(req, res) {
       if (err) return console.error(err);
 
       console.log(results);
-      if(results.length>0){
-      var usernameproblem='Username is not unique, take a new one';
-      req.flash('error_msg', 'Username is not unique, create a new one');
-      res.redirect('/users/signup');
-      console.log('ok huh');
-    }
-    else {
-      var newUser = new User({
-        username: username,
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        password: password
-      });
+      if (results.length > 0) {
+        var usernameproblem = 'Username is not unique, take a new one';
+        req.flash('error_msg', 'Username is not unique, create a new one');
+        res.redirect('/users/signup');
+        console.log('ok huh');
+      } else {
+        var newUser = new User({
+          username: username,
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          password: password
+        });
 
-      User.createUser(newUser, function(err, user) {
-        if (err) throw err;
-        console.log(user);
-        console.log('these datas are uploaded');
-      });
+        User.createUser(newUser, function(err, user) {
+          if (err) throw err;
+          console.log(user);
+          console.log('these datas are uploaded');
+        });
 
-      req.flash('success_msg', 'You are register and can now login');
+        req.flash('success_msg', 'You are register and can now login');
 
-      res.redirect('/users/login');
-      console.log('Passed');
+        res.redirect('/users/login');
+        console.log('Passed');
 
-    }
+      }
     });
 
 
@@ -165,11 +164,21 @@ router.post('/login',
   function(req, res) {
     var username = req.user.username;
     var fullname = req.user.firstname + ' ' + req.user.lastname;
+    Profile.find({
+      username: username
+    }, function(err, results) {
+      //console.log(JSON.stringify(results).length);
+       if (JSON.stringify(results).length>2) req.session.photo = results[0].photo;
+       else
+      req.session.photo = 'dist/img/avatar.jpg';
+      console.log(req.session.photo);
+      res.redirect('/profile/dashboard/' + username);
+    });
 
 
     //console.log('------------------->>>>'+fullname);
     //console.log('dhuru-------------------------->>>>>>>>'+req.user);
-    res.redirect('/profile/dashboard/'+username);
+
 
     //res.redirect('/profile?fullname='+fullname);
   });
@@ -203,7 +212,7 @@ router.post('/forgot', function(req, res, next) {
         //console.log('inside-->forget post>crypto');
         var token = buf.toString('hex');
         done(err, token);
-      //  console.log('inside-->forget post>crypto');
+        //  console.log('inside-->forget post>crypto');
       });
     },
     function(token, done) {
@@ -211,7 +220,7 @@ router.post('/forgot', function(req, res, next) {
         email: req.body.email
 
       }, function(err, user) {
-        console.log('----------->>'+req.body.email);
+        console.log('----------->>' + req.body.email);
         if (!user) {
           req.flash('error', 'No account with that email address exists.');
           return res.redirect('/users/forgot');
@@ -253,7 +262,7 @@ router.post('/forgot', function(req, res, next) {
   ], function(err) {
     //console.log('-------------------------------->>last redirect');
 
-    if(err) {
+    if (err) {
       //console.log('-----------------------err->>'+err);
       return next(err);
     }
@@ -271,7 +280,7 @@ router.get('/reset/:token', function(req, res) {
       $gt: Date.now()
     }
   }, function(err, user) {
-    console.log('-------------get------>>>>>>>>>>>>>'+user);
+    console.log('-------------get------>>>>>>>>>>>>>' + user);
     //console.log('--inside reset,token->err,user-->');
     if (!user) {
       req.flash('error', 'Password reset token is invalid or has expired.');
@@ -281,7 +290,7 @@ router.get('/reset/:token', function(req, res) {
 
 
     res.render('reset', {
-      token:req.params.token
+      token: req.params.token
     });
   });
 });
@@ -290,11 +299,11 @@ router.post('/reset/:token', function(req, res) {
   console.log('----first-->>reset/post/:token---------------->');
   async.waterfall([
     function(done) {
-      var token=req.params.token;
-      var time=Date.now();
-      console.log('-------------------token: '+token);
+      var token = req.params.token;
+      var time = Date.now();
+      console.log('-------------------token: ' + token);
 
-      console.log('-------------------time: '+time);
+      console.log('-------------------time: ' + time);
 
       User.findOne({
         resetPasswordToken: req.params.token,
@@ -302,24 +311,24 @@ router.post('/reset/:token', function(req, res) {
           $gt: Date.now()
         }
       }, function(err, user) {
-        console.log('----------post--------->>>>>>>>>>>>>'+user);
+        console.log('----------post--------->>>>>>>>>>>>>' + user);
         if (!user) {
           //console.log('----------------------------------> not user');
           req.flash('error', 'Password reset token is invalid or has expired.');
           return res.redirect('back');
         }
-          req.checkBody('newpassword', 'Password is required').notEmpty();
-          req.checkBody('confirmpassword', 'Passwords do not match').equals(req.body.newpassword);
-          var errors = req.validationErrors();
-          if(errors){
-            req.flash('error', 'Both passwords are not same');
-            return res.redirect('back');
-          }
+        req.checkBody('newpassword', 'Password is required').notEmpty();
+        req.checkBody('confirmpassword', 'Passwords do not match').equals(req.body.newpassword);
+        var errors = req.validationErrors();
+        if (errors) {
+          req.flash('error', 'Both passwords are not same');
+          return res.redirect('back');
+        }
 
 
         console.log('-------------------------------------------->>> reset passwords');
 
-        var newpassword=req.body.newpassword;
+        var newpassword = req.body.newpassword;
         // var password=null;
         var hash = bcrypt.hashSync(newpassword, 10);
 
@@ -330,10 +339,10 @@ router.post('/reset/:token', function(req, res) {
         //   console.log('------------>'+newpassword);
         // });
 
-        user.password=hash;
+        user.password = hash;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
-        console.log('------post- new-----------?'+user);
+        console.log('------post- new-----------?' + user);
 
         user.save(function(err) {
           req.logIn(user, function(err) {

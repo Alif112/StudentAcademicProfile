@@ -2,7 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
-var mongodb = require('mongodb');
+//var mongodb = require('mongodb');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 //var User = require('../models/user');
@@ -17,7 +17,8 @@ router.get('/awardsdataedit', function(req, res) {
   var fullname = req.user.firstname + ' ' + req.user.lastname;
   console.log('--------------------->>>>  inside projectsdataedit');
   res.render('awardsdataedit', {
-    fullname: fullname
+    fullname: fullname,
+    photo: req.session.photo
   });
 });
 
@@ -75,6 +76,7 @@ router.get('/data/edit/:id', function(req, res) {
     console.log('full name--its here>' + fullname);
     res.render('awardsdataupdate', {
       fullname: fullname,
+      photo: req.session.photo,
       results
     });
     console.log('ok huh');

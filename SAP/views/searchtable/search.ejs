@@ -1,59 +1,89 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Search</title>
-    <%include partials/searchheader.ejs%>
-  </head>
-  <body>
 
-    <div class="widget-box">
-      <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-        <h5>Profile Data</h5>
-      </div>
-      <div class="widget-content nopadding">
-        <table class="table table-bordered data-table">
-          <thead>
-            <tr>
-              <th>Full Name</th>
-              <th>University</th>
-              <th>Department</th>
-              <th>Registration</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for(var i=0;i<results.length;i++){ %>
+<head>
+  <meta charset="utf-8">
+  <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+  <%include partials/searchheader.ejs%>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="bootstrap/css/reg.css" rel="stylesheet" type="text/css" />
+
+    <style media="screen">
+      button.btn,
+      input[type="submit"].btn {
+        background: cadetblue;
+        height: 30px;
+      }
+
+      input[type="text"] {
+        height: 30px;
+      }
+    </style>
+
+
+
+    <title>Register</title>
+</head>
+
+<body>
+
+  <% include partials/basicnav.ejs%>
+
+    <div class="container col-sm-3-5">
+      <h1>Welcome to Student Academic Profile</h1>
+    </div>
+    <div class="container col-sm-3-5">
+
+      <div class="widget-box">
+        <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+          <h5>Profile Data</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <table class="table table-bordered data-table">
+            <thead>
               <tr>
-                <td>
-
-                  <a href="searchresult/<%= results[i]._id %>">
-              <%=results[i].profilename%>
-              </a>
-                </td>
-
-                <td>
-
-                  <%=results[i].university%>
-
-                </td>
-
-                <td>
-
-                  <%=results[i].dept%>
-
-                </td>
-                <td>
-
-                  <%=results[i].registration%>
-
-                </td>
-
+                <th>Full Name</th>
+                <th>University</th>
+                <th>Department</th>
+                <th>Registration</th>
               </tr>
+            </thead>
+            <tbody>
+              <% for(var i=0;i<results.length;i++){ %>
+                <tr>
+                  <td>
 
-              <%}%>
-          </tbody>
-        </table>
+                    <a href="searchresult/<%= results[i]._id %>">
+                      <%=results[i].profilename%>
+                    </a>
+                  </td>
+
+                  <td>
+
+                    <%=results[i].university%>
+
+                  </td>
+
+                  <td>
+
+                    <%=results[i].dept%>
+
+                  </td>
+                  <td>
+
+                    <%=results[i].registration%>
+
+                  </td>
+
+                </tr>
+
+                <%}%>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
+
 
     <script src="search/extra/jquery.min.js"></script>
     <script src="search/extra/jquery.ui.custom.js"></script>
@@ -66,5 +96,9 @@
 
 
     <ul class="typeahead dropdown-menu"></ul>
-  </body>
+
+
+
+</body>
+
 </html>

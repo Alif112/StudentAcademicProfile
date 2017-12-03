@@ -3624,11 +3624,11 @@ table.text-center, table.text-center td, table.text-center th {
 }
 
 .bg-yellow, .callout.callout-warning,  .label-waring, .modal-warning .modal-body {
-  background-color: #f39c12 !important
+  background-color: #5f3479 !important
 }
 
 .bg-aqua, .callout.callout-info,  .label-info, .modal-info .modal-body {
-  background-color: #00c0ef !important
+  background-color: #117790 !important
 }
 
 .bg-blue {

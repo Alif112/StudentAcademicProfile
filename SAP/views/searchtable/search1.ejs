@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search</title>
+    <%include partials/searchheader.ejs%>
+  </head>
+  <body>
+
+    <div class="widget-box">
+      <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+        <h5>Profile Data</h5>
+      </div>
+      <div class="widget-content nopadding">
+        <table class="table table-bordered data-table">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>University</th>
+              <th>Department</th>
+              <th>Registration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(var i=0;i<results.length;i++){ %>
+              <tr>
+                <td>
+
+                  <a href="searchresult/<%= results[i]._id %>">
+              <%=results[i].profilename%>
+              </a>
+                </td>
+
+                <td>
+
+                  <%=results[i].university%>
+
+                </td>
+
+                <td>
+
+                  <%=results[i].dept%>
+
+                </td>
+                <td>
+
+                  <%=results[i].registration%>
+
+                </td>
+
+              </tr>
+
+              <%}%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="search/extra/jquery.min.js"></script>
+    <script src="search/extra/jquery.ui.custom.js"></script>
+    <script src="search/extra/bootstrap.min.js"></script>
+    <script src="search/extra/jquery.uniform.js"></script>
+    <script src="search/extra/select2.min.js"></script>
+    <script src="search/extra/jquery.dataTables.min.js"></script>
+    <script src="search/extra/matrix.js"></script>
+    <script src="search/extra/matrix.tables.js"></script>
+
+
+    <ul class="typeahead dropdown-menu"></ul>
+  </body>
+</html>
