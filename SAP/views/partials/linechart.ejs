@@ -44,7 +44,7 @@
         type: 'line',
         data: {
           datasets: [{
-            label: "Dataset with date object point data",
+            label: "GPA",
             data: <%-JSON.stringify(data)%>,
             fill: true
           }],
@@ -54,7 +54,7 @@
           responsive: true,
           title: {
             display: true,
-            text: "Chart.js Time Point Data"
+            text: "Graduation Data"
           },
           scales: {
             xAxes: [{
@@ -62,14 +62,14 @@
               display: true,
               scaleLabel: {
                 display: true,
-                labelString: 'value'
+                labelString: 'Courses'
               }
             }],
             yAxes: [{
               display: true,
               scaleLabel: {
                 display: true,
-                labelString: 'value'
+                labelString: 'Gradepoint'
               }
             }]
           }

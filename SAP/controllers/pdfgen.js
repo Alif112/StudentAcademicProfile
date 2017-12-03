@@ -1,12 +1,28 @@
-var pdf = require('pdfkit');
+// var pdf = require('pdfkit');
+// var fs = require('fs');
+//
+// var myDoc = new pdf();
+//
+// myDoc.pipe(fs.createWriteStream('node.pdf'));
+//
+// myDoc.font('Times-Roman')
+// .fontSize(30)
+// .text('CV',100,100);
+//
+// myDoc.end();
+
 var fs = require('fs');
+var pdf = require('html-pdf');
+var html = fs.readFileSync('index.html', 'utf8');
+var options = {
+  format: 'Letter'
+};
 
-var myDoc = new pdf;
 
-myDoc.pipe(fs.createWriteStream('node.pdf'));
+exports.generatepdf = function(req, res) {
 
-myDoc.font('Times-Roman')
-.fontSize(30)
-.text('CV',100,100);
-
-myDoc.end();
+  pdf.create(html, options).toFile('./12345.pdf', function(err, res) {
+    if (err) return console.log(err);
+    console.log(res); // { filename: '/app/businesscard.pdf' }
+  });
+};

@@ -5,20 +5,14 @@ var sync = require('synchronize');
 var data =[ { x: 'CSE 133', y: 4 },
 { x: 'CSE 143', y: 3.5 },
 { x: 'CSE 375', y: 4 },
-{ x: 'CSE 100', y: 4 },
-{ x: 'CSE 200', y: 4 },
-{ x: 'CSE 233', y: 3.75 },
-{ x: 'CSE 254', y: 4 },
-{ x: 'CSE 373', y: 3.75 },
-{ x: 'CSE 253', y: 3.5 },
-{ x: 'CSE 455', y: 4 } ];
+{ x: 'CSE 100', y: 4 }];
 
-
+var lebels = ['CSE 133','CSE 143','CSE 375','CSE 100'];
 exports.linegraph = function(req, res) {
 
  //data = calculateData('tuhin47');JSON.stringify()
-
-  res.render('linechart',{data:data});
+ console.log(lebels);
+  res.render('linechart',{data:data,lebels:lebels});
 };
 
 function calculateData(username) {

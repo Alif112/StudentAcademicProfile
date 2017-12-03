@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>tada</title>
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <style media="screen">
+    body {
+      zoom: 1.5;
+      line-height: inherit;
+    }
+
+    .form-group {
+      border-color: #d9dfe4;
+      border-style: solid;
+      border-width: thin;
+    }
+
+    input.hidden {
+      position: absolute;
+      left: -9999px;
+    }
+
+    #profile-image1 {
+      cursor: pointer;
+      width: 100px;
+      height: 100px;
+      border: 2px solid #03b1ce;
+    }
+
+    .tital {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .bot-border {
+      border-bottom: 1px #f8f8f8 solid;
+      margin: 5px 0 5px 0
+    }
+  </style>
+</head>
+
+<body>
+  <div class="col-md-10">
+    <div class="container">
+      <div class="row">
+
+        <div id="Usage">
+          <div class="col-md-9 ">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4>Personal Information</h4>
+              </div>
+              <div class="panel-body">
+                <div class="box box-info">
+                  <div class="box-body">
+                    <div class="col-sm-2">
+                      <div align="left">
+                        <img id="profile-image1" alt="User Pic" src="<%=photo%>" class="img img-responsive">
+                      </div>
+                      <br>
+                    </div>
+                    <div class="col-sm-6">
+                      <h4 style="color:#00b1b1;"><%=profilename%> </h4>
+                      </span>
+                      <span>
+                                       <p><%="Student"%></p>
+                                    </span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr style="margin:5px 0 5px 0;">
+                    <div class="col-sm-5 col-xs-6 tital ">Email:</div>
+                    <div class="col-sm-7 ">
+                      <%=email%>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital ">Department:</div>
+                    <div class="col-sm-7  ">
+                      <%=dept%>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital ">Date Of Birth:</div>
+                    <div class="col-sm-7">
+                      <%=dob%>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital ">Gender:</div>
+                    <div class="col-sm-7">
+                      <%=gender%>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital ">Marital Status:</div>
+                    <div class="col-sm-7">
+                      <%=maritalstatus%>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital ">Permanent Address:</div>
+                    <div class="col-sm-7">
+                      <%=permanentaddress%>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="panel-heading">
+                <h4>Personal Profile</h4>
+              </div>
+              <div class="panel-body">
+
+                <%=overview%>
+              </div>
+              <%if(JSON.stringify(results).length>2){%>
+                <div class="panel-heading">
+                  <h4>Academic Performance</h4>
+                </div>
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Exam Type</th>
+                        <th>Board</th>
+                        <th>Passed Year</th>
+                        <th>Institution</th>
+                        <th>GPA</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% for(var i=0; i < results.length; i++) { %>
+                        <tr>
+                          <td>
+                            <%= results[i].examtype %>
+                          </td>
+                          <td>
+                            <%= results[i].board %>
+                          </td>
+                          <td>
+                            <%= results[i].passedyear %>
+                          </td>
+                          <td>
+                            <%= results[i].institution %>
+                          </td>
+                          <td>
+                            <%= results[i].gpa %>
+                          </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                  </table>
+                </div>
+                <%}%>
+                  <%if(JSON.stringify(resultProject).length>2){%>
+                    <div class="panel-heading">
+                      <h4>Project Works</h4>
+                    </div>
+                    <div class="box-body">
+                      <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th>Serial</th>
+                            <th>Project Ttile</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(var i=0;i<resultProject.length;i++){ %>
+                            <tr>
+                              <td>
+                                <%=i+1%>
+                              </td>
+                              <td>
+                                <%= resultProject[i].projecttitle %>
+                              </td>
+                              <td>
+                                <%= resultProject[i].projectdetails %>
+                              </td>
+                            </tr>
+                            <%}%>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <%}%>
+                      <%if(JSON.stringify(resultPublication).length>2){%>
+                        <div class="panel-heading">
+                          <h4>Publications</h4>
+                        </div>
+                        <div class="panel-body">
+                          <div class="col-sm-offset-1">
+                            <%for(var i=0; i<resultPublication.length; i++){%>
+                              <section>
+                                <form class="form-horizontal">
+                                  <div class="form-group">
+                                    <h2><%=resultPublication[i].publicationtitle%></h2>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="control-label col-sm-2" for="email">Publication Short-tails:</label>
+                                    <div class="col-sm-10">
+                                      <p>
+                                        <%=resultPublication[i].publicationshort%>
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="control-label col-sm-2" for="email">Publication Details:</label>
+                                    <div class="col-sm-10">
+                                      <p>
+                                        <%=resultPublication[i].publicationdetails%>
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="control-label col-sm-2" for="email">Publication Place:</label>
+                                    <div class="col-sm-10">
+                                      <p>
+                                        <%=resultPublication[i].publicationplace%>
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="control-label col-sm-2" for="email">Publication URL</label>
+                                    <div class="col-sm-10">
+                                      <p id="logo">
+                                        <a href="<%=results[i].publicationurl%>">
+                                          <%=resultPublication[i].publicationurl%>
+                                        </a>
+                                      </p>
+                                    </div>
+                                  </div>
+                                </form>
+                              </section>
+                              <%}%>
+                          </div>
+
+                        </div>
+                        <%}%>
+                          <%if(JSON.stringify(resultAward).length>2){%>
+                            <div class="panel-heading">
+                              <h4>Awards</h4>
+                            </div>
+                            <div class="box-body">
+                              <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                  <tr>
+                                    <th>Serial</th>
+                                    <th>Awards Title</th>
+                                    <th>Position and Details</th>
+                                  </tr>
+                                </thead>
+
+                                <tbody>
+                                  <% for(var i=0;i<resultAward.length;i++){ %>
+                                    <tr>
+                                      <td>
+                                        <%=i+1%>
+                                      </td>
+                                      <td>
+                                        <%= resultAward[i].awardtitle %>
+                                      </td>
+                                      <td>
+                                        <%= resultAward[i].awarddetails %>
+                                      </td>
+                                    </tr>
+                                    <%}%>
+                                </tbody>
+                              </table>
+                            </div>
+                            <%}%>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-7">
+          <!-- <a href="/profile/editdata">
+                     <button style="float:right;" type="button" class="btn btn-primary">Edit Profile</button>
+                     </a> -->
+          <a href="#" onclick="return xepOnline.Formatter.Format('Usage',
+                     {pageWidth:'216mm', pageHeight:'279mm'});">
+                  pdf download
+                  </a>
+        </div>
+        <!-- these js files are used for making PDF -->
+        <!-- <script src="pdf/js/jspdf.js"></script> -->
+        <script src="pdf/js/jquery-2.1.3.js"></script>
+        <!-- <script src="pdf/js/pdfFromHTML.js"></script> -->
+        <script src="pdf/js/xepOnline.jqPlugin.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

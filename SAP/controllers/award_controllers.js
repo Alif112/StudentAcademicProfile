@@ -22,6 +22,7 @@ exports.awardsdata  = function(req, res) {
     console.log('full name--its here>' + fullname);
     res.render('awardsdata', {
       fullname: fullname,
+      photo: req.session.photo,
       results
     });
     console.log('ok huh');

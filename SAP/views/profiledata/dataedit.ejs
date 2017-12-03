@@ -91,7 +91,7 @@
                 <div class="form-group">
                   <label class="col-md-4 control-label" for="Upload photo">Upload photo</label>
                   <div class="col-md-4">
-                    <input id="Upload photo" name="UploadPhoto" class="input-file" type="file">
+                    <input required id="Upload photo" name="UploadPhoto" class="input-file" type="file">
                   </div>
                 </div>
 
@@ -222,11 +222,11 @@
 
 
                     <label class="radio-inline" for="Gender-0">
-      <input type="radio" name="gender" id="Gender-0" value="male" checked="checked">
+      <input type="radio" name="gender" id="Gender-0" value="Male" checked="checked">
       Male
     </label>
                     <label class="radio-inline" for="Gender-1">
-      <input type="radio" name="gender" id="Gender-1" value="female">
+      <input type="radio" name="gender" id="Gender-1" value="Female">
       Female
     </label>
                     <label class="radio-inline" for="Gender-2">
@@ -241,12 +241,12 @@
                   <label class="col-md-4 control-label" for="radios">Marital Status:</label>
                   <div class="col-md-4">
                     <label class="radio-inline" for="radios-1">
-      <input type="radio" name="maritalstatus" id="radios-1" value="unmarried" checked="checked" >
+      <input type="radio" name="maritalstatus" id="radios-1" value="Unmarried" checked="checked" >
       Unmarried
     </label>
 
                     <label class="radio-inline" for="radios-0">
-      <input type="radio" name="maritalstatus" id="radios-0" value="married" >
+      <input type="radio" name="maritalstatus" id="radios-0" value="Married" >
       Married
     </label>
 
@@ -463,7 +463,7 @@
                 <div class="form-group">
                   <label class="col-md-4 control-label">Overview (max 500 words)</label>
                   <div class="col-md-4">
-                    <textarea class="form-control" rows="10" name="overview"></textarea>
+                    <textarea class="form-control" rows="10" name="overview"><%=overview%></textarea>
                   </div>
                 </div>
 

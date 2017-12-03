@@ -10,8 +10,8 @@ var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var mongo = require('mongodb');
-var mongoose = require('mongoose');
+//var mongo = require('mongodb');
+//var mongoose = require('mongoose');
 var url = require('url');
 var nodemailer = require('nodemailer');
 var async = require('async');
@@ -25,8 +25,8 @@ var PdfTable = require('voilab-pdf-table');
 // var nodemailersmtptransport=require('nodemailer-smtp-transport');
 //var sleep=require('sleep');
 
-mongoose.connect('mongodb://localhost/NodeDemo');
-var db = mongoose.connection;
+//mongoose.connect('mongodb://localhost/NodeDemo');
+//var db = mongoose.connection;
 
 
 
@@ -81,7 +81,8 @@ router.get('/', function(req, res, next) {
 
 
   res.render('generatecv', {
-    fullname: fullname
+    fullname: fullname,
+    photo: req.session.photo
   });
 });
 
@@ -135,9 +136,10 @@ router.post('/', function(req, res, next) {
                                   console.log(award);
 
 
-                                  var nameheader = 18;
-                                  var localheader = 11;
-                                  var localdata = 9;
+                                  var nameheader = 19;
+                                  var localheader = 12;
+                                  var height = 11;
+                                  var localdata = 10;
                                   var i = 0;
                                   var doc = new PDFDocument();
 
@@ -165,9 +167,10 @@ router.post('/', function(req, res, next) {
                                     doc.moveDown(2);
                                     doc.fontSize(localheader);
                                     doc.font('Times-Roman')
+
                                       .text('Personal Profile', {
                                         align: 'left',
-                                        bold: true
+                                        underline: true
                                       });
 
                                     var overview = profile[0].overview;
@@ -187,7 +190,7 @@ router.post('/', function(req, res, next) {
                                     doc.font('Times-Roman')
                                       .text('Education', {
                                         align: 'left',
-                                        bold: true
+                                        underline: true
                                       });
 
                                     doc.fontSize(localdata);
@@ -197,19 +200,19 @@ router.post('/', function(req, res, next) {
                                     for (i = 0; i < sschscresult.length; i++) {
                                       if (sschscresult[i].examtype == 'SSC') {
 
-                                        doc.font('Times-Roman').text('SSC    -' + sschscresult[i].institution + '    -' +
+                                        doc.font('Times-Roman').text('SSC               -' + sschscresult[i].institution + '                                             -' +
                                           sschscresult[i].passedyear + '    GPA:-' + sschscresult[i].gpa, {
-                                            align: 'center',
+                                            align: 'left',
                                           });
                                       } else if (sschscresult[i].examtype == 'HSC') {
-                                        doc.font('Times-Roman').text('HSC    -' + sschscresult[i].institution + '    -' +
+                                        doc.font('Times-Roman').text('HSC              -' + sschscresult[i].institution + '                      -' +
                                           sschscresult[i].passedyear + '    GPA:-' + sschscresult[i].gpa, {
-                                            align: 'center',
+                                            align: 'left',
                                           });
                                       } else if (sschscresult[i].examtype == 'Graduation') {
                                         doc.font('Times-Roman').text('Graduation    -' + sschscresult[i].institution + '    -' +
                                           sschscresult[i].passedyear + '    CGPA:-' + sschscresult[i].gpa, {
-                                            align: 'center',
+                                            align: 'left',
                                           });
                                       }
                                     }
@@ -228,7 +231,7 @@ router.post('/', function(req, res, next) {
                                     doc.font('Times-Roman')
                                       .text('Projects', {
                                         align: 'left',
-                                        bold: true
+                                        underline: true
                                       });
 
                                     doc.fontSize(localdata);
@@ -262,7 +265,7 @@ router.post('/', function(req, res, next) {
                                     doc.font('Times-Roman')
                                       .text('Publications', {
                                         align: 'left',
-                                        bold: true
+                                        underline: true
                                       });
 
                                     doc.fontSize(localdata);
@@ -291,7 +294,7 @@ router.post('/', function(req, res, next) {
                                     doc.font('Times-Roman')
                                       .text('Awards', {
                                         align: 'left',
-                                        bold: true
+                                        underline: true
                                       });
 
                                     doc.fontSize(localdata);
@@ -322,7 +325,7 @@ router.post('/', function(req, res, next) {
                                     doc.font('Times-Roman')
                                       .text('Interests', {
                                         align: 'left',
-                                        bold: true
+                                        underline: true
                                       });
 
                                     doc.fontSize(localdata);
@@ -337,7 +340,7 @@ router.post('/', function(req, res, next) {
                                       });
                                       doc.moveDown(1);
                                       doc.fontSize(localdata);
-                                      doc.font('Times-Roman').text('--' + interest[i].interestshortails + '--' + interest[i].interestnurl, {
+                                      doc.font('Times-Roman').text('--' + interest[i].interestshortails + '--' + interest[i].interesturl, {
                                         align: 'right'
                                       });
                                       doc.moveDown(1);
@@ -382,7 +385,7 @@ router.post('/', function(req, res, next) {
 
 
   console.log('----------->   pdf created');
-  req.flash('success_msg','Your CV is created on '+path);
+  req.flash('success_msg', 'Your CV is created on ' + path);
   res.redirect('/generatecvs');
 
 });

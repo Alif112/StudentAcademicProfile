@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mongodb = require('mongodb');
+//var mongodb = require('mongodb');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 //var User = require('../models/user');
@@ -46,6 +46,7 @@ router.get('/hobbiesdata', function(req, res) {
     console.log('full name--its here>' + fullname);
     res.render('hobbiesdata', {
       fullname: fullname,
+      photo: req.session.photo,
       results
     });
     console.log('ok huh');
@@ -61,7 +62,8 @@ router.get('/hobbiesdataedit', function(req, res) {
 
 
   res.render('hobbiesdataedit', {
-    fullname: fullname
+    fullname: fullname,
+    photo: req.session.photo
   });
 });
 
@@ -122,6 +124,7 @@ router.get('/data/edit/:id', function(req, res) {
     console.log('full name--its here>' + fullname);
     res.render('hobbiesdataupdate', {
       fullname: fullname,
+      photo: req.session.photo,
       results
     });
     console.log('ok huh');
