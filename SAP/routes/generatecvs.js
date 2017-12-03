@@ -10,8 +10,8 @@ var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var mongo = require('mongodb');
-var mongoose = require('mongoose');
+//var mongo = require('mongodb');
+//var mongoose = require('mongoose');
 var url = require('url');
 var nodemailer = require('nodemailer');
 var async = require('async');
@@ -25,8 +25,8 @@ var PdfTable = require('voilab-pdf-table');
 // var nodemailersmtptransport=require('nodemailer-smtp-transport');
 //var sleep=require('sleep');
 
-mongoose.connect('mongodb://localhost/NodeDemo');
-var db = mongoose.connection;
+//mongoose.connect('mongodb://localhost/NodeDemo');
+//var db = mongoose.connection;
 
 
 
@@ -81,7 +81,8 @@ router.get('/', function(req, res, next) {
 
 
   res.render('generatecv', {
-    fullname: fullname
+    fullname: fullname,
+    photo: req.session.photo
   });
 });
 
@@ -137,7 +138,7 @@ router.post('/', function(req, res, next) {
 
                                   var nameheader = 19;
                                   var localheader = 12;
-                                  var height=11;
+                                  var height = 11;
                                   var localdata = 10;
                                   var i = 0;
                                   var doc = new PDFDocument();

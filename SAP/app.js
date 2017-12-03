@@ -33,7 +33,9 @@ var graduations = require('./routes/graduations');
 var interests = require('./routes/interests');
 var hobbies=require('./routes/hobbies');
 var generatecvs=require('./routes/generatecvs');
-  
+var search=require('./routes/search');
+var pdf=require('./routes/pdf');
+
 
 var app = express();
 
@@ -50,7 +52,9 @@ app.set('views', [path.join(__dirname, 'views'),
                  path.join(__dirname, 'views/interests'),
                  path.join(__dirname, 'views/hobbies'),
                  path.join(__dirname, 'views/generatecvs'),
-                 path.join(__dirname, 'views/charts')
+                 path.join(__dirname, 'views/charts'),
+                 path.join(__dirname, 'views/searchtable'),
+                 path.join(__dirname, 'views/pdf')
                    ]);
 
 
@@ -94,7 +98,13 @@ app.use('/hobbies', express.static(__dirname + '/public'));
 app.use('/hobbies/data/edit', express.static(__dirname + '/public'));
 app.use('/hobbies/data/delete', express.static(__dirname + '/public'));
 
+app.use('/search', express.static(__dirname + '/public'));
+app.use('/search/searchresult', express.static(__dirname + '/public'));
+
 app.use('/generatecvs', express.static(__dirname + '/public'));
+
+app.use('/pdf', express.static(__dirname + '/public'));
+
 
 app.use('/photos',require('./routes/photos'));
 //express session
@@ -159,6 +169,8 @@ app.use('/graduations',graduations);
 app.use('/interests',interests);
 app.use('/hobbies',hobbies);
 app.use('/generatecvs',generatecvs);
+app.use('/search',search);
+app.use('/pdf',pdf);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

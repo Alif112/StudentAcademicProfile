@@ -1,7 +1,7 @@
 
 var express = require('express');
 var router = express.Router();
-var mongodb = require('mongodb');
+//var mongodb = require('mongodb');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 //var User = require('../models/user');
@@ -125,6 +125,7 @@ router.get('/graduationsdata', function(req, res) {
     console.log('full name--its here>' + fullname);
     res.render('graduationsdata', {
       fullname: fullname,
+      photo: req.session.photo,
       cgpa: cgpa,
       cgpa1: cgpa1,
       cgpa2: cgpa2,
@@ -157,7 +158,8 @@ router.get('/graduationsdataedit', function(req, res) {
 
 
   res.render('graduationsdataedit', {
-    fullname: fullname
+    fullname: fullname,
+    photo: req.session.photo
   });
 });
 
@@ -241,6 +243,7 @@ router.get('/data/edit/:id', function(req, res) {
     console.log('full name--its here>' + fullname);
     res.render('graduationsdataupdate', {
       fullname: fullname,
+      photo: req.session.photo,
       results
     });
     console.log('ok huh');

@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/NodeDemo');
+// mongoose.connect('mongodb://localhost/NodeDemo');
 var Graduations = require('./models/graduation');
 var Sync = require('sync');
 
